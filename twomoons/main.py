@@ -23,7 +23,7 @@ if __name__ == '__main__':
     for i in range(n_epochs):
         for X, y in train_dataloader:
             optimizer.zero_grad()
-            pred = torch.sigmoid(model(X))
+            pred = torch.softmax(model(X), dim=1)
             loss = criterion(pred, y)
             loss.backward()
             optimizer.step()

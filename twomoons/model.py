@@ -13,7 +13,7 @@ def get_model():
 
 def train_laplace_approximation(model, train_dataloader, val_loader):
     la = Laplace(model, 'classification',
-                 subset_of_weights='all',
+                 subset_of_weights='last_layer',
                  hessian_structure='kron')
     la.fit(train_dataloader)
     la.optimize_prior_precision(method='CV', val_loader=val_loader)

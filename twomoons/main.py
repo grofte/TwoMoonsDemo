@@ -16,9 +16,9 @@ if __name__ == '__main__':
     train_dataloader, val_dataloader = get_torch_loaders(X_train, X_test, t_train_sm, t_test_sm, batch_size=10)
 
     model = get_model()
-    n_epochs = 100
+    n_epochs = 1000
     criterion = torch.nn.BCELoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=1e-2, weight_decay=1e-4)
+    optimizer = torch.optim.Adam(model.parameters(), lr=1e-3, weight_decay=1e-3)
 
     for i in range(n_epochs):
         for X, y in train_dataloader:
@@ -52,10 +52,25 @@ if __name__ == '__main__':
     with torch.no_grad():
         mesh_preds_BNN = []
         for X, _ in mesh_dataloader:
-            f = model_BNN(X)
+            f = model_BNN(X, link_approx="probit")
             v = np.max(f.numpy(), axis=1)
             mesh_preds_BNN.append(v)
     confidences_BNN = np.hstack(mesh_preds_BNN)
 
     plot_confidence(confidences_BNN, X_train, t_train, X_test, t_test, x_limit, y_limit, x_grid, y_grid, num_points,
-                    "Laplace approx. BNN prediction confidence")
+                    "Laplace approx. BNN prediction confidence using probit approx.")
+    plot_confidence(confidences_BNN, X_train, t_train, X_test, t_test, x_limit, y_limit, x_grid, y_grid, num_points,
+                    "Laplace approx. BNN prediction confidence using probit approx.", False)
+    # Compute BNN confidence
+    with torch.no_grad():
+        mesh_preds_BNN = []
+        for X, _ in mesh_dataloader:
+            f = model_BNN(X, link_approx="mc")
+            v = np.max(f.numpy(), axis=1)
+            mesh_preds_BNN.append(v)
+    confidences_BNN = np.hstack(mesh_preds_BNN)
+
+    plot_confidence(confidences_BNN, X_train, t_train, X_test, t_test, x_limit, y_limit, x_grid, y_grid, num_points,
+                    "Laplace approx. BNN prediction confidence using MC sampling")
+    plot_confidence(confidences_BNN, X_train, t_train, X_test, t_test, x_limit, y_limit, x_grid, y_grid, num_points,
+                    "Laplace approx. BNN prediction confidence using MC sampling", False)

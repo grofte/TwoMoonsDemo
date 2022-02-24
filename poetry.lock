@@ -65,6 +65,22 @@ unicode = ["unicodedata2 (>=14.0.0)"]
 woff = ["zopfli (>=0.1.4)", "brotlicffi (>=0.8.0)", "brotli (>=1.0.1)"]
 
 [[package]]
+name = "gpytorch"
+version = "1.6.0"
+description = "An implementation of Gaussian Processes in Pytorch"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.extras]
+dev = ["black", "twine", "pre-commit"]
+docs = ["ipython", "ipykernel", "sphinx (<3.0.0)", "sphinx-rtd-theme", "nbsphinx", "m2r"]
+examples = ["ipython", "jupyter", "matplotlib", "scipy", "torchvision", "tqdm"]
+keops = ["pykeops (>=1.1.1)"]
+pyro = ["pyro-ppl (>=1.0.0)"]
+test = ["flake8 (==4.0.1)", "flake8-print (==4.0.0)", "pytest", "nbval"]
+
+[[package]]
 name = "joblib"
 version = "1.1.0"
 description = "Lightweight pipelining with Python functions"
@@ -287,7 +303,7 @@ python-versions = ">=3.6"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "efe4c4cf5c1ce667d784036bd8f603cfddeb44f40186b77950b45d0d4ee439ae"
+content-hash = "a941030e2467fc7a77e3d4b752ab1cfbddec6d94ce119622008dc5870409a4d5"
 
 [metadata.files]
 asdfghjkl = [
@@ -309,6 +325,9 @@ einops = [
 fonttools = [
     {file = "fonttools-4.29.1-py3-none-any.whl", hash = "sha256:1933415e0fbdf068815cb1baaa1f159e17830215f7e8624e5731122761627557"},
     {file = "fonttools-4.29.1.zip", hash = "sha256:2b18a172120e32128a80efee04cff487d5d140fe7d817deb648b2eee023a40e4"},
+]
+gpytorch = [
+    {file = "gpytorch-1.6.0.tar.gz", hash = "sha256:08e8f1a80669dc3eee5ba237fc00c867a8858f9b186bbec8571a8cf9af36f543"},
 ]
 joblib = [
     {file = "joblib-1.1.0-py2.py3-none-any.whl", hash = "sha256:f21f109b3c7ff9d95f8387f752d0d9c34a02aa2f7060c2135f465da0e5160ff6"},

@@ -3,10 +3,11 @@ from matplotlib import colors
 
 
 def plot_confidence(confidences, X_train, t_train, X_test, t_test, x_limit, y_limit, x_grid, y_grid, num_points,
-                    title=None):
+                    title=None, plot_points=True):
     fig, axis = plt.subplots(1, 1, figsize=(15, 12))
     axis.set_aspect('equal')
-    plot_two_moons(axis, X_train, t_train, X_test, t_test, x_limit=x_limit, y_limit=y_limit)
+    if plot_points:
+        plot_two_moons(axis, X_train, t_train, X_test, t_test, x_limit=x_limit, y_limit=y_limit)
     pc = axis.pcolormesh(x_grid, y_grid, confidences.reshape(num_points, num_points), cmap=plt.cm.RdBu_r,
                          vmin=min(confidences), vmax=max(confidences))
     fig.colorbar(pc)

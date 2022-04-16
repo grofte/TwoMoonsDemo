@@ -14,9 +14,13 @@ def to_softmax_format(t_set):
 
 
 def get_two_moons_np(size=300, train_size=250):
-    X, y = datasets.make_moons(n_samples=size, shuffle=True, noise=0.1, random_state=1234)
+    X, y = datasets.make_moons(n_samples=size, shuffle=True, noise=0.10, random_state=1234)
     y = y.reshape(-1, 1)
     X_train, X_test, t_train, t_test = train_test_split(X, y, train_size=train_size)
+    mean = np.mean(X_train, axis=0)
+    std = np.std(X_train, axis=0)
+    X_train = (X_train - mean) / std
+    X_test = (X_test - mean) / std
     return X_train, X_test, t_train, t_test
 
 
